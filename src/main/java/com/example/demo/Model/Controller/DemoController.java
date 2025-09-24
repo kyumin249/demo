@@ -1,13 +1,21 @@
 package com.example.demo.Model.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.Model.domain.TestDB;
+import com.example.demo.Model.service.TestService;
 
 
 @Controller
+
 public class DemoController {
+
+    @Autowired
+    TestService testService;
+
     @GetMapping("/hello2") // 전송 방식 GET
     public String hello(Model model) {
     model.addAttribute("data", " 방갑습니다."); // model 설정
@@ -27,5 +35,11 @@ public class DemoController {
         model.addAttribute("para2", 002);
         return "test1";
     }
-
+    @GetMapping("/testdb")
+    public String getAllTestDBs(Model model) {
+        TestDB test = testService.findByName("홍길동");
+        model.addAttribute("data4", test);
+        System.out.println("데이터 출력 디버그 : " + test);
+        return "testdb";
+    }
 }
