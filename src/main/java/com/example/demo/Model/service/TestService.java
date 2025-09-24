@@ -1,9 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.Model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.domain.TestDB;
-import com.example.demo.repository.TestRepository;
+
+import com.example.demo.Model.domain.TestDB;
+import com.example.demo.Model.repository.TestRepository;
+
 import lombok.RequiredArgsConstructor;
 @Service // 서비스 등록, 스프링 내부 자동 등록됨
 @RequiredArgsConstructor

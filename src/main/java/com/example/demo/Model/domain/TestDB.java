@@ -1,5 +1,5 @@
 
-package com.example.demo.domain;
+package com.example.demo.Model.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity // TestDB라는객체와DB 테이블을매핑. JPA가관리
