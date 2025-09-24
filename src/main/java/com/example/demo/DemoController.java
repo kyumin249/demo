@@ -17,7 +17,7 @@ public class DemoController {
     public String about() {
         return "about_detailed";
     }
-     @GetMapping("/thymeleaf-test1")
+     @GetMapping("/test1")
     public String thymeleaf_test1(Model model) {
         model.addAttribute("data1", "<h2> 방갑습니다 </h2>");
         model.addAttribute("data2", "태그의 속성 값");
@@ -25,7 +25,7 @@ public class DemoController {
         model.addAttribute("name", "홍길동");
         model.addAttribute("para1", "001");
         model.addAttribute("para2", 002);
-        return "thymeleaf-test1";
+        return "test1";
     }
 
 }
