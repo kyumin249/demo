@@ -9,6 +9,8 @@ import com.example.demo.Model.domain.TestDB;
 import com.example.demo.Model.service.TestService;
 
 
+
+
 @Controller
 
 public class DemoController {
@@ -41,5 +43,5 @@ public class DemoController {
         model.addAttribute("data4", test);
         System.out.println("데이터 출력 디버그 : " + test);
         return "testdb";
-    }
+    } 
 }
