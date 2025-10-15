@@ -18,7 +18,7 @@
  <th>ID</th>
  <th>제목</th>
  <th>내용</th>
- <th>버튼</th>
+ <th>비고</th>
  </tr>
  </thead>
  <tbody>
@@ -27,8 +27,7 @@
  <td th:text="${article.title}"></td>
  <td th:text="${article.content}"></td>
  <td>
-    <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">수정</a>
-    <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">삭제</a>
+    
  </td>
  </tr>
  </tbody>
