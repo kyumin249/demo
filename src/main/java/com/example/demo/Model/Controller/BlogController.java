@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class BlogController {
         model.addAttribute("article", list.get()); // 존재하면Article 객체를모델에추가
     } else {
  // 처리할로직추가(예: 오류페이지로리다이렉트, 예외처리등)
-        return "error"; // 오류처리페이지로연결
+         return "/error_page/article_error"; // 오류처리페이지로연결
     }
     return "article_edit"; // .HTML 연결
     }
@@ -43,5 +44,11 @@ public class BlogController {
     public String updateArticle(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
         blogService.update(id, request);
         return "redirect:/article_list"; // 글 수정 이후 .html 연결
+    }
+
+    @DeleteMapping("/api/article_delete/{id}")
+    public String deleteArticle(@PathVariable Long id) {
+        blogService.delete(id);
+        return "redirect:/article_list";
     }
 }
