@@ -32,7 +32,7 @@ public class BlogService {
     public void update(Long id, AddArticleRequest request) {
         Optional<Article> optionalArticle = blogRepository.findById(id); // 단일글조회
         optionalArticle.ifPresent(article -> { //값이있으면
-            //article.update(request.getTitle(), request.getContent()); // 값을수정
+            article.update(request.getTitle(), request.getContent()); // 값을수정
             blogRepository.save(article); // Article 객체에저장
         });
     }
