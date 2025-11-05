@@ -25,14 +25,18 @@
  </tr>
  </thead>
  <tbody>
- <tr th:each="article : ${articles}">
- <td th:text="${article.id}"></td>
- <td th:text="${article.title}"></td>
- <td th:text="${article.content}"></td>
+ <tr th:each="Board : ${Boards}">
+ <td th:text="${Board.id}"></td>
+ <td th:text="${Board.title}"></td>
+ <td th:text="${Board.content}"></td>
+ <td th:text="${Board.user}"></td>
+ <td th:text="${Board.newdate}"></td>
+ <td th:text="${Board.count}"></td>
+ <td th:text="${Board.likec}"></td>
  <td>
-    <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">수정</a>
+    <a class="btn btn-warning" th:href="@{/Board_edit/{id}(id=${Board.id})}">수정</a>
     <!-- 게시글 삭제 폼-->
-    <form th:action="@{/api/article_delete/{id}(id=${article.id})}" method="post" style="display:inline;">
+    <form th:action="@{/api/article_delete/{id}(id=${Board.id})}" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete">
         <button type="submit" class="btn btn-danger">삭제</button>
     </form>

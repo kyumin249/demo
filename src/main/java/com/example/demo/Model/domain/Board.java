@@ -52,4 +52,9 @@ public class Board {
     this.count = count;
     this.likec = likec;
  }
+
+ public void update(String title2, String content2) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'update'");
+ }
 }
