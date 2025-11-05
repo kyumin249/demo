@@ -30,10 +30,7 @@ public class BlogService {
         return boardRepository.save(board);
     }
 
-    public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
-        return Optional.empty();
-    }
-
+    // Removed duplicate findById stub (use the implemented findById below)
     public void update(Long id, Board request) {
         Optional<Board> optionalBoard = boardRepository.findById(id); // 단일 글 조회
         optionalBoard.ifPresent(board -> { // 값이 있으면
@@ -47,11 +44,7 @@ public class BlogService {
     }
 
 
-    // private final BoardRepository blogRepository; // 리포지토리 선언
-    // public List<Board> findAll() { // 게시판 전체 목록 조회
-    // return blogRepository.findAll();
-    // }
-    // public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
-    // return blogRepository.findById(id);
-    // }
+    public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
+    return boardRepository.findById(id);
+    }
 }

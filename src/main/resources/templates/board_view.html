@@ -5,18 +5,7 @@
  <title>new 블로그 게시판</title>
  <meta content="width=device-width, initial-scale=1.0" name="viewport">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <table class="table table-bordered">
- <thead>
- <tr>
- <th>글내용</th>
- </tr>
- </thead>
- <tbody>
- <tr th:each="board : ${boards}">
- <td th:text="${board.content}"></td>
- </tr>
- </tbody>
- </table>
+  
  </head>
  <body>
  <div class="container">
@@ -37,23 +26,23 @@
  </tr>
  </thead>
  <tbody>
- <tr th:each="Board : ${Boards}">
- <td th:text="${Board.id}"></td>
- <td th:text="${Board.title}"></td>
- <td th:text="${Board.content}"></td>
- <td th:text="${Board.user}"></td>
- <td th:text="${Board.newdate}"></td>
- <td th:text="${Board.count}"></td>
- <td th:text="${Board.likec}"></td>
+ <tr th:each="board : ${boards}">
+ <td th:text="${board.id}"></td>
+ <td th:text="${board.title}"></td>
+ <td th:text="${board.content}"></td>
+ <td th:text="${board.user}"></td>
+ <td th:text="${board.newdate}"></td>
+ <td th:text="${board.count}"></td>
+ <td th:text="${board.likec}"></td>
  <td>
-    <a class="btn btn-warning" th:href="@{/Board_edit/{id}(id=${Board.id})}">수정</a>
+<a class="btn btn-warning" th:href="@{/board_edit/{id}(id=${board.id})}">수정</a>
     <!-- 게시글 삭제 폼-->
-    <td>
-        <a th:href="@{/board_view/{id}(id=${Board.id})}">
-            <span th:text="${Board.title}"></span>
-        </a>
-    </td>
- </td>
+<td>
+    <a th:href="@{/board_view/{id}(id=${board.id})}">
+        <span th:text="${board.title}"></span>
+    </a>
+</td>
+
  </tr>
   <tr th:each="board : ${boards}">
  <td>

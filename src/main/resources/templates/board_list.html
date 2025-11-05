@@ -25,18 +25,18 @@
  </tr>
  </thead>
  <tbody>
- <tr th:each="Board : ${Boards}">
- <td th:text="${Board.id}"></td>
+ <tr th:each="board : ${boards}">
+ <td th:text="${board.id}"></td>
   <td>
-    <a th:href="@{/board_view/{id}(id=${Board.id})}">
-        <span th:text="${Board.title}"></span>
+    <a th:href="@{/board_view/{id}(id=${board.id})}">
+        <span th:text="${board.title}"></span>
  </a>
  </td>
- <td th:text="${Board.content}"></td>
- <td th:text="${Board.user}"></td>
- <td th:text="${Board.newdate}"></td>
- <td th:text="${Board.count}"></td>
- <td th:text="${Board.likec}"></td>
+ <td th:text="${board.content}"></td>
+ <td th:text="${board.user}"></td>
+ <td th:text="${board.newdate}"></td>
+ <td th:text="${board.count}"></td>
+ <td th:text="${board.likec}"></td>
 
  </tr>
  </tbody>
