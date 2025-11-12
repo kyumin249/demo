@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.ui.Model;
 
 
 import com.example.demo.Model.domain.Board;
+import com.example.demo.Model.service.AddBoardRequest;
 import com.example.demo.Model.service.BlogService;
 
 @Controller
@@ -73,5 +75,11 @@ public class BlogController {
     @GetMapping("/board_write")
     public String board_write() {
         return "board_write";
+    }
+
+     @PostMapping("/api/boards") // 글쓰기 게시판 저장
+    public String addboards(@ModelAttribute AddBoardRequest request) {
+        blogService.save(request);
+        return "redirect:/board_list"; // .HTML 연결
     }
 }
