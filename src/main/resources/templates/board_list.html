@@ -71,5 +71,24 @@
         </table>
     </div>
 </div>
+  <nav aria-label="Page navigation">
+    <ulclass="pagination justify-content-center">
+      <li class="page-item" th:classappend="${currentPage== 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/board_list(page=${currentPage-1}, keyword=${keyword})}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" th:each="i: ${#numbers.sequence(0, totalPages-1)}"
+      th:classappend="${i== currentPage} ? 'active'">
+        <a class="page-link" th:href="@{/board_list(page=${i}, keyword=${keyword})}" th:text="${i+ 1}">1</a>
+      </li>
+      <li class="page-item" th:classappend="${currentPage+ 1 >= totalPages} ? 'disabled'">
+        <a class="page-link" th:href="@{/board_list(page=${currentPage+ 1}, keyword=${keyword})}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
 </body>
 </html>
