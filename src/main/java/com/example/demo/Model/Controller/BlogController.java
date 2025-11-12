@@ -69,4 +69,9 @@ public class BlogController {
         return "board_view"; // .HTML 연결
     }
     
+    // 글쓰기 게시판
+    @GetMapping("/board_write")
+    public String board_write() {
+        return "board_write";
+    }
 }

@@ -17,15 +17,19 @@ public class BlogService {
         return boardRepository.findAll();
     }
 
-    public Article save(AddArticleRequest request){
+    public Board save(AddBoardRequest request){
         // DTO가 없는 경우 이곳에 직접 구현 가능
         return boardRepository.save(request.toEntity());
     }
 
-    public Board addBoard(String title, String content) {
+    public Board addBoard(String title, String content, String user, String newdate, String count, String likec) {
         Board board = Board.builder()
             .title(title)
             .content(content)
+            .user(user)
+            .newdate(newdate)
+            .count(count)
+            .likec(likec)
             .build();
         return boardRepository.save(board);
     }
