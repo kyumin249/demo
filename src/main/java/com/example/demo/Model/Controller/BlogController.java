@@ -35,12 +35,12 @@ public class BlogController {
         model.addAttribute("board", list.get()); // 존재하면Article 객체를모델에추가
     } else {
  // 처리할로직추가(예: 오류페이지로리다이렉트, 예외처리등)
-         return "/error_page/board_error"; // 오류처리페이지로연결
+         return "error_page/board_error"; // 오류처리페이지로연결
     }
     return "board_edit"; // .HTML 연결
     }
 
-    @PutMapping("/api/Board_edit/{id}")
+    @PutMapping("/api/board_edit/{id}")
     public String updateBoard(@PathVariable Long id, @ModelAttribute Board request) {
         blogService.update(id, request);
         return "redirect:/board_list"; // 글 수정 이후 .html 연결
