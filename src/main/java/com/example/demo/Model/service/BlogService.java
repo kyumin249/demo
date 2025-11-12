@@ -3,6 +3,8 @@ package com.example.demo.Model.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.Model.domain.Board;
 import com.example.demo.Model.repository.BoardRepository;
@@ -51,4 +53,10 @@ public class BlogService {
     public Optional<Board> findById(Long id) { // 게시판 특정 글 조회
     return boardRepository.findById(id);
     }
+    public Page<Board> findAll(Pageable pageable) {
+        return boardRepository.findAll(pageable);
+    }
+    public Page<Board> searchByKeyword(String keyword, Pageable pageable) {
+        return boardRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+    } // LIKE 검색 제공(대소문자 무시)
 }
