@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import com.example.demo.Model.domain.Article;
 import com.example.demo.Model.domain.Board;
 import com.example.demo.Model.repository.BoardRepository;
  import lombok.RequiredArgsConstructor;

@@ -1,8 +1,6 @@
 package com.example.demo.Model.Controller;
 
- import com.example.demo.Model.domain.Article;
 import com.example.demo.Model.domain.Board;
-import com.example.demo.Model.service.AddArticleRequest;
 import com.example.demo.Model.service.AddBoardRequest;
 import com.example.demo.Model.service.BlogService;
  import lombok.RequiredArgsConstructor;
