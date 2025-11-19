@@ -1,6 +1,7 @@
 package com.example.demo.Model.Controller;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +19,9 @@ import org.springframework.ui.Model;
 
 import com.example.demo.Model.domain.Board;
 import com.example.demo.Model.service.BlogService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class BlogController {
@@ -88,4 +92,25 @@ public class BlogController {
         model.addAttribute("keyword", keyword); // 키워드
         return "board_list"; // .HTML 연결
     }
+
+    @GetMapping("/board_list")
+public String board_list(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int pageSize,
+        Model model) {
+
+    int startNum = (page * pageSize) + 1;
+
+    model.addAttribute("startNum", startNum);
+    model.addAttribute("page", page);
+    model.addAttribute("pageSize", pageSize);
+
+    // boards 목록도 반드시 모델에 포함
+    List<Board> boards = blogService.findBoards(page, pageSize);
+    model.addAttribute("boards", boards);
+
+    return "board_list";
+}
+
+    
 }

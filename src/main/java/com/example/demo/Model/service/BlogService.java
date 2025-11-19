@@ -1,5 +1,6 @@
 package com.example.demo.Model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,4 +60,12 @@ public class BlogService {
     public Page<Board> searchByKeyword(String keyword, Pageable pageable) {
         return boardRepository.findByTitleContainingIgnoreCase(keyword, pageable);
     } // LIKE 검색 제공(대소문자 무시)
+
+    @SuppressWarnings("unused")
+    public List<Board> findBoards(int page, int pageSize) {
+        int startIndex = page * pageSize;
+        // Implement pagination logic here
+        // Example: return repository.findAll().stream().skip(startIndex).limit(pageSize).collect(Collectors.toList());
+        return new ArrayList<>();
+    }
 }
