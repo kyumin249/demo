@@ -68,4 +68,7 @@ public class BlogService {
         // Example: return repository.findAll().stream().skip(startIndex).limit(pageSize).collect(Collectors.toList());
         return new ArrayList<>();
     }
+    public void saveMember(AddBoardRequest request) {
+        // Implementation to save member
+    }
 }
