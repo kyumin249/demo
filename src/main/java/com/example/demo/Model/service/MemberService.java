@@ -1,5 +1,10 @@
 package com.example.demo.Model.service;
 
+import java.util.ArrayList;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,37 +15,38 @@ import com.example.demo.Model.service.AddMemberRequest;
 import com.example.demo.Model.domain.Member;
 
 @Service
-@Transactional // 트랜잭션처리(클래스내모든메소드대상)
-@RequiredArgsConstructor
-public class MemberService{
-	private final MemberRepository memberRepository;
-	private final PasswordEncoder passwordEncoder; // 스프링버전5 이후, 단방향해싱알고리즘지원
+ @Transactional // 트랜잭션처리(클래스내모든메소드대상)
+ @RequiredArgsConstructor
+ public class MemberService implements UserDetailsService{
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder; // 스프링버전5 이후, 단방향해싱알고리즘지원
+    private void validateDuplicateMember(AddMemberRequest request){
+        Member findMember= memberRepository.findByEmail(request.getEmail()); // 이메일존재유무
+        if(findMember!= null){
+            throw new IllegalStateException("이미가입된회원입니다."); // 예외처리
+        }
+    }
 
-	private void validateDuplicateMember(AddMemberRequest request){
-		Member findMember = memberRepository.findByEmail(request.getEmail()); // 이메일존재유무
-		if(findMember != null){
-			throw new IllegalStateException("이미가입된회원입니다."); // 예외처리
-		}
-	}
 
     public Member saveMember(AddMemberRequest request){
         validateDuplicateMember(request); // 이메일 체크
-        String encodedPassword = passwordEncoder.encode((String) request.getPassword());
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         request.setPassword(encodedPassword); // 암호화된 비밀번호 설정
         return memberRepository.save(request.toEntity());
-
     }
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email);
 
-    public Member loginCheck(String email, Object rawPassword) {
-        Member member = memberRepository.findByEmail(email); // 이메일 조회
         if (member == null) {
-            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
+            throw new UsernameNotFoundException("등록되지 않은 이메일입니다.");
         }
-        if (!passwordEncoder.matches((String) rawPassword, member.getPassword())) { // 비밀번호 확인
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-        return member; // 인증 성공 시 회원 객체 반환
+
+        // Spring Security의 User 객체로 변환하여 반환
+        // Spring Security는 이 객체의 비밀번호(BCrypt)를 사용하여 입력된 비밀번호와 비교합니다.
+        return new org.springframework.security.core.userdetails.User(
+            member.getEmail(),       // 사용자 이름 (여기서는 이메일)
+            member.getPassword(),    // DB에 저장된 암호화된 비밀번호
+            new ArrayList<>()        // 권한 목록 (임시로 비워둠)
+        );
     }
-
-
-}
+ }

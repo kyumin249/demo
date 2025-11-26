@@ -7,8 +7,7 @@ import com.example.demo.Model.domain.Member;
 
 
 
-@Repository
+ @Repository
  public interface MemberRepository extends JpaRepository<Member, Long> {
-    
-    Member findByEmail(String email);
+   Member findByEmail(String email);
  }
