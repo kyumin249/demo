@@ -20,6 +20,9 @@ import org.springframework.ui.Model;
 
 import com.example.demo.Model.domain.Board;
 import com.example.demo.Model.service.BlogService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -82,7 +85,14 @@ public class BlogController {
 public String board_list(
         Model model,
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "") String keyword) {
+        @RequestParam(defaultValue = "") String keyword, HttpSession session) {
+
+    String userId = (String) session.getAttribute("userId"); // 세션 아이디 존재 확인
+    String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
+    if (userId == null) {
+        return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
+    }
+    System.out.println("세션 userId: " + userId); // 서버 IDE 터미널에 세션 값 출력
 
     int pageSize = 3;
     PageRequest pageable = PageRequest.of(page, pageSize);
@@ -101,6 +111,7 @@ public String board_list(
     model.addAttribute("currentPage", page); // 현재 페이지
     model.addAttribute("keyword", keyword); // 검색 키워드
     model.addAttribute("startNum", startNum); // 시작 번호
+    model.addAttribute("email", email); // 로그인 사용자(이메일)
 
     return "board_list";
 }
@@ -111,7 +122,7 @@ public String board_list_post(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "") String keyword,
         Model model) {
-    return board_list(model, page, keyword);
+    return board_list(model, page, keyword, null);
 }
 
 
