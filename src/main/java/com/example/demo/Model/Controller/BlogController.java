@@ -7,10 +7,14 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -87,12 +91,14 @@ public String board_list(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "") String keyword, HttpSession session) {
 
-    String userId = (String) session.getAttribute("userId"); // 세션 아이디 존재 확인
-    String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
-    if (userId == null) {
-        return "redirect:/login"; // 로그인 페이지로 리다이렉션
-    }
-    System.out.println("세션 userId: " + userId); // 서버 IDE 터미널에 세션 값 출력
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentEmail = authentication.getName(); // 인증된 사용자의 이메일(principal)을 가져옴
+    // String userId = (String) session.getAttribute("userId"); // 세션 아이디 존재 확인
+    // String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
+    // if (userId == null) {
+    //     return "redirect:/login"; // 로그인 페이지로 리다이렉션
+    // }
+    System.out.println("인증된 사용자 이메일: " + currentEmail); // 서버 IDE 터미널에 세션 값 출력
 
     int pageSize = 3;
     PageRequest pageable = PageRequest.of(page, pageSize);
@@ -111,7 +117,7 @@ public String board_list(
     model.addAttribute("currentPage", page); // 현재 페이지
     model.addAttribute("keyword", keyword); // 검색 키워드
     model.addAttribute("startNum", startNum); // 시작 번호
-    model.addAttribute("email", email); // 로그인 사용자(이메일)
+    model.addAttribute("email", currentEmail); // 로그인 사용자(이메일)
 
     return "board_list";
 }

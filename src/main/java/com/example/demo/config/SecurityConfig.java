@@ -41,7 +41,7 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login") // 로그인 페이지 경로
                 .loginProcessingUrl("/api/login_check") // 폼 액션 경로 (인증 처리 URL)
-                .defaultSuccessUrl("/", true) // 성공 시 이동 경로
+                .defaultSuccessUrl("/board_list", true) // 성공 시 이동 경로
                 .failureUrl("/login?error") // 실패 시 이동 경로
                 .usernameParameter("username") // 아이디 파라미터 이름
                 .passwordParameter("password") // 비밀번호 파라미터 이름
