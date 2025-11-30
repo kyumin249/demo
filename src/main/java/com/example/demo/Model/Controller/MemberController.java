@@ -44,7 +44,7 @@ public class MemberController {
     public String member_login() {
         return "login"; // .HTML 연결
     }
-     @PostMapping("/api/login_check") // 아이디, 패스워드 로그인 체크
+    @PostMapping("/api/login_check") // 아이디, 패스워드 로그인 체크
     public String checkMembers(@ModelAttribute AddMemberRequest request, Model model, HttpServletRequest request2, HttpServletResponse response) {
         try {
             HttpSession session = request2.getSession(false); // 기존 세션 가져오기(존재하지 않으면 null 반환)
@@ -55,14 +55,14 @@ public class MemberController {
                 cookie.setMaxAge(0); // 쿠키 삭제(0으로 설정)
                 response.addCookie(cookie); // 응답으로 쿠키 전달
             }
-            session = request2.getSession(true); // 새로운 세션 생성
-            return "redirect:/board_list"; // 로그인 성공 시 게시판 리스트 페이지로 리다이렉트
- 
-        }  catch (IllegalArgumentException e) {
+            session = request2.getSession(true); // 새로운 세션 생성 
+            return "redirect:/board_list"; // 로그인 성공 시 게시판 페이지로 리다이렉트
+        }
+        
+        catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage()); // 에러 메시지 전달
             return "login"; // 로그인 실패 시 로그인 페이지로 리다이렉트
         }
-        
     }
 
      @GetMapping("/api/logout") // 로그아웃버튼동작

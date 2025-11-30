@@ -6,8 +6,9 @@
  import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  import org.springframework.security.crypto.password.PasswordEncoder;
  import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
- import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.Customizer.withDefaults;
 
  @Configuration // 스프링 설정 클래스 지정, 등록된 Bean 생성 시점
 @EnableWebSecurity // 스프링 보안 활성화
@@ -21,7 +22,8 @@ public PasswordEncoder passwordEncoder() {
  return new BCryptPasswordEncoder(); // 비밀번호 암호화 저장
 }
 
- public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .headers(headers -> headers
         .addHeaderWriter((request, response) -> {

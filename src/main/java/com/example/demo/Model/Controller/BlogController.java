@@ -81,7 +81,7 @@ public class BlogController {
         return "board_write";
     }
 
-    @GetMapping("/board_list")
+@GetMapping("/board_list")
 public String board_list(
         Model model,
         @RequestParam(defaultValue = "0") int page,
@@ -90,7 +90,7 @@ public String board_list(
     String userId = (String) session.getAttribute("userId"); // 세션 아이디 존재 확인
     String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
     if (userId == null) {
-        return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
+        return "redirect:/login"; // 로그인 페이지로 리다이렉션
     }
     System.out.println("세션 userId: " + userId); // 서버 IDE 터미널에 세션 값 출력
 
