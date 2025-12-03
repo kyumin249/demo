@@ -22,7 +22,8 @@ public class SecurityConfig {
                     response.setHeader("X-XSS-Protection", "1; mode=block"); // XSS-Protection 헤더설정
                 })
             )
-            .csrf(withDefaults()) // CSRF 설정
+            // .csrf(withDefaults()) // CSRF 설정
+            .csrf(csrf -> csrf.disable()) // CSRF 비활성화 (필요시 활성화 권장)
             .sessionManagement(session -> session
                 .invalidSessionUrl("/session-expired") // 세션만료시이동페이지
                 .maximumSessions(1) // 사용자별세션최대수
